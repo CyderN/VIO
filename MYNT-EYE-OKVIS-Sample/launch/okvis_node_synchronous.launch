@@ -1,0 +1,8 @@
+<launch>
+  <node name="okvis_node" pkg="okvis_ros" type="okvis_node_synchronous" output="screen" args="/home/xcy/catkin_ws/src/MYNT-EYE-OKVIS-Sample/config/config_fpga_p2_euroc.yaml /home/xcy/2019-01-16-14-14-56.bag">
+    <param name="mesh_file" value="firefly.dae" />
+    <param name="camera_topic_0" value="/cam0/image_raw" />
+    <param name="camera_topic_1" value="/cam1/image_raw" />
+    <param name="imu_topic" value="/mynteye/imu/data_raw" />
+  </node>
+</launch>
