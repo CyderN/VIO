@@ -1,10 +1,4 @@
-/*this is a bad version
- *
- *
- *
- * aaaabadbadbad
- *
- *
+/**
  *
  * ********************************************************************************
  *  OKVIS - Open Keyframe-based Visual-Inertial SLAM

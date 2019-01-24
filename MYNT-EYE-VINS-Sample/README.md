@@ -1,4 +1,4 @@
-# VINS-Monobadbad
+# VINS-Mono
 
 [MYNT-EYE-S-SDK]: https://github.com/slightech/MYNT-EYE-S-SDK.git
 [MYNT-EYE-D-SDK]: https://github.com/slightech/MYNT-EYE-D-SDK.git
