@@ -107,7 +107,7 @@ bool Frontend::detectAndDescribe(size_t cameraIndex,
   // ExtractionDirection == gravity direction in camera frame
   Eigen::Vector3d g_in_W(0, 0, -1);
   Eigen::Vector3d extractionDirection = T_WC.inverse().C() * g_in_W;
-  frameOut->describe(cameraIndex, extractionDirection);
+  frameOut->describe(cameraIndex, extractionDirection);//bravo!!!!!!!!!!!!!!!
 
   // set detector/extractor to nullpointer? TODO
   return true;

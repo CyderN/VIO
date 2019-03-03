@@ -419,10 +419,10 @@ void ThreadedKFVio::frameConsumerLoop(size_t cameraIndex) {
       propagationTimer.stop();
     }
     okvis::kinematics::Transformation T_WC = T_WS
-        * (*parameters_.nCameraSystem.T_SC(frame->sensorId));
+        * (*parameters_.nCameraSystem.T_SC(frame->sensorId));//get T_WC
     beforeDetectTimer.stop();
     detectTimer.start();
-    frontend_.detectAndDescribe(frame->sensorId, multiFrame, T_WC, nullptr);
+    frontend_.detectAndDescribe(frame->sensorId, multiFrame, T_WC, nullptr);//use T_WC with gravity direction to describe
     detectTimer.stop();
     afterDetectTimer.start();
 

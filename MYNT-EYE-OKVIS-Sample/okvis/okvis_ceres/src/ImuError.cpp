@@ -284,10 +284,10 @@ int ImuError::redoPreintegration(const okvis::kinematics::Transformation& /*T_WS
 }
 
 // Propagates pose, speeds and biases with given IMU measurements.
-int ImuError::propagation(const okvis::ImuMeasurementDeque & imuMeasurements,
-                          const okvis::ImuParameters & imuParams,
-                          okvis::kinematics::Transformation& T_WS,
-                          okvis::SpeedAndBias & speedAndBiases,
+int ImuError::propagation(const okvis::ImuMeasurementDeque & imuMeasurements,//fixed
+                          const okvis::ImuParameters & imuParams,//fixed
+                          okvis::kinematics::Transformation& T_WS,// T_WS tobe propagate
+                          okvis::SpeedAndBias & speedAndBiases,//speed&bias tobe propagate
                           const okvis::Time & t_start,
                           const okvis::Time & t_end, covariance_t* covariance,
                           jacobian_t* jacobian) {
