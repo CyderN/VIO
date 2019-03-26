@@ -10,10 +10,10 @@ cameras:
           0.00510484,  0.00807873, -0.99995434, -0.02876609,
            0.0, 0.0, 0.0, 1.0],
        image_dimension: [640, 480],
-       distortion_coefficients: [-0.29249572753906250, 0.07487106323242188, -0.00019836425781250, -0.00031661987304688, 0.00000000000000000],
-       distortion_type: radialtangential,
-       focal_length: [354.83758544921875000, 354.83068847656250000],
-       principal_point: [328.50021362304687500, 240.57057189941406250]}
+       distortion_coefficients: [-0.017392658007741337, 0.01981202922101267, -0.030030918510439524, 0.01421640927715908],
+       distortion_type: equidistant,
+       focal_length: [350.69257871620243, 350.6312727019888],
+       principal_point: [322.51728965012103, 244.3912136146181]}
 
     - {T_SC:
          [0.99995524,  0.00688418,  0.00649072,  0.07321083,
@@ -21,13 +21,13 @@ cameras:
           0.00645372,  0.00538345, -0.99996468, -0.02838018,
           0.0, 0.0, 0.0, 1.0],
        image_dimension: [640, 480],
-       distortion_coefficients: [-0.27589797973632812, 0.06007385253906250, -0.00068283081054688, -0.00119400024414062, 0.00000000000000000],
-       distortion_type: radialtangential,
-       focal_length: [350.84906005859375000, 351.11618041992187500],
-       principal_point: [336.98165893554687500, 247.35499572753906250]}
+       distortion_coefficients: [-0.0002584221331886398, -0.04309582850294968, 0.06640174756028602, -0.03577241534984982],
+       distortion_type: equidistant,
+       focal_length: [352.4630550223145, 352.3329267593065],
+       principal_point: [323.79245790179993, 254.72440572198897]}
 
 camera_params:
-    camera_rate: 2 # just to manage the expectations of when there should be frames arriving20
+    camera_rate: 20 # just to manage the expectations of when there should be frames arriving
     sigma_absolute_translation: 0.0 # The standard deviation of the camera extrinsics translation, e.g. 1.0e-10 for online-calib [m].
     sigma_absolute_orientation: 0.0 # The standard deviation of the camera extrinsics orientation, e.g. 1.0e-3 for online-calib [rad].
     sigma_c_relative_translation: 0.0 # The std. dev. of the cam. extr. transl. change between frames, e.g. 1.0e-6 for adaptive online calib (not less for numerics) [m].
@@ -44,7 +44,7 @@ imu_params:
     sigma_gw_c: 0.00088056 # gyro drift noise density [rad/s^s/sqrt(Hz)]
     sigma_aw_c: 2.04543326912e-05 # accelerometer drift noise density [m/s^2/sqrt(Hz)]
     tau: 3600.0 # reversion time constant, currently not in use [s]
-    g: 9.8013 # Earth's acceleration due to gravity [m/s^2]
+    g: 9.80579 # Earth's acceleration due to gravity [m/s^2]
     a0: [ 0.0, 0.0, 0.0 ] # Accelerometer bias [m/s^2]
     imu_rate: 200
     # tranform Body-Sensor (IMU)
@@ -77,7 +77,7 @@ imageDelay: 0.0  # in case you are using a custom setup, you will have to calibr
 displayImages: true  # displays debug video and keyframe matches. May be slow.
 
 # use direct driver
-useDriver: false 
+useDriver: true 
 
 # some options for how and what to publish -- optional in ROS-free version
 publishing_options:
@@ -95,3 +95,4 @@ publishing_options:
          0.0000, 0.0000, 0.0000, 1.0000]
     trackedBodyFrame: B                # B or S, the frame of reference that will be expressed relative to the selected worldFrame
     velocitiesFrame: Wc                # Wc, B or S,  the frames in which the velocities of the selected trackedBodyFrame will be expressed in
+
