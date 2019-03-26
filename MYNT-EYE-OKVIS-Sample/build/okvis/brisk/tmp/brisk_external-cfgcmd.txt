@@ -1,0 +1,1 @@
+cmd='/usr/bin/cmake;-DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>;-DCMAKE_BUILD_TYPE:STRING=Release;-GUnix Makefiles;/home/xcy/catkin_ws/src/MYNT-EYE-OKVIS-Sample/build/okvis/brisk/src/brisk_external'

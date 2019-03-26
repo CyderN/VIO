@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/xcy/catkin_ws/src/MYNT-EYE-OKVIS-Sample/okvis/okvis_kinematics/src/dependency-tracker.cc
+

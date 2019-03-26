@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../devel/lib/libokvis_util.a  CMakeFiles/okvis_util.dir/src/dependency-tracker.cc.o
+/usr/bin/ranlib ../../devel/lib/libokvis_util.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc devel/lib/libokvis_ros.a  CMakeFiles/okvis_ros.dir/src/Subscriber.cpp.o CMakeFiles/okvis_ros.dir/src/Publisher.cpp.o CMakeFiles/okvis_ros.dir/src/RosParametersReader.cpp.o
+/usr/bin/ranlib devel/lib/libokvis_ros.a

@@ -1,0 +1,3 @@
+repository='http://github.com/ceres-solver/ceres-solver.git'
+module=''
+tag=''
