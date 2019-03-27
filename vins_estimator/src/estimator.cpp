@@ -104,7 +104,7 @@ void Estimator::processIMU(double dt, const Vector3d &linear_acceleration, const
         Vector3d un_acc_1 = Rs[j] * (linear_acceleration - Bas[j]) - g;
         Vector3d un_acc = 0.5 * (un_acc_0 + un_acc_1);
         Ps[j] += dt * Vs[j] + 0.5 * dt * dt * un_acc;
-        Vs[j] += dt * un_acc;
+        Vs[j] += dt * un_acc;///PS QS VS used for prior of image.
     }
     acc_0 = linear_acceleration;
     gyr_0 = angular_velocity;

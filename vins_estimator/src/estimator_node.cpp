@@ -145,9 +145,9 @@ void imu_callback(const sensor_msgs::ImuConstPtr &imu_msg)
     last_imu_t = imu_msg->header.stamp.toSec();
 
     m_buf.lock();
-    imu_buf.push(imu_msg);
+    imu_buf.push(imu_msg);//push!
     m_buf.unlock();
-    con.notify_one();
+    con.notify_one();//notify_one, wake the consumer up. "i push!"
 
     last_imu_t = imu_msg->header.stamp.toSec();
 
@@ -243,7 +243,7 @@ void process()
                     //printf("imu: dt:%f a: %f %f %f w: %f %f %f\n",dt, dx, dy, dz, rx, ry, rz);
 
                 }
-                else
+                else//imu may last one after image.
                 {
                     double dt_1 = img_t - current_time;
                     double dt_2 = t - img_t;
