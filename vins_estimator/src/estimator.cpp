@@ -83,7 +83,7 @@ void Estimator::processIMU(double dt, const Vector3d &linear_acceleration, const
         gyr_0 = angular_velocity;
     }
 
-    if (!pre_integrations[frame_count])
+    if (!pre_integrations[frame_count])//当滑窗不满的时候，把当前测量值加入到滑窗指定位置
     {
         pre_integrations[frame_count] = new IntegrationBase{acc_0, gyr_0, Bas[frame_count], Bgs[frame_count]};
     }
