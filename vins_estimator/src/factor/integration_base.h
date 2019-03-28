@@ -146,7 +146,7 @@ class IntegrationBase
         //checkJacobian(_dt, acc_0, gyr_0, acc_1, gyr_1, delta_p, delta_q, delta_v,
         //                    linearized_ba, linearized_bg);
         delta_p = result_delta_p;
-        delta_q = result_delta_q;
+        delta_q = result_delta_q;////////alpha beta gamma
         delta_v = result_delta_v;
         linearized_ba = result_linearized_ba;
         linearized_bg = result_linearized_bg;
@@ -198,7 +198,7 @@ class IntegrationBase
     Eigen::Matrix<double, 18, 18> noise;
 
     double sum_dt;
-    Eigen::Vector3d delta_p;
+    Eigen::Vector3d delta_p;/////////////alpha beta gamma;;;;;!
     Eigen::Quaterniond delta_q;
     Eigen::Vector3d delta_v;
 

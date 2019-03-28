@@ -88,7 +88,7 @@ void FeatureTracker::readImage(const cv::Mat &_img, double _cur_time)
     {
         cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(3.0, cv::Size(8, 8));
         TicToc t_c;
-        clahe->apply(_img, img);
+        clahe->apply(_img, img);//img is _img after clahe
         ROS_DEBUG("CLAHE costs: %fms", t_c.toc());
     }
     else
@@ -111,6 +111,7 @@ void FeatureTracker::readImage(const cv::Mat &_img, double _cur_time)
         vector<uchar> status;
         vector<float> err;
         cv::calcOpticalFlowPyrLK(cur_img, forw_img, cur_pts, forw_pts, status, err, cv::Size(21, 21), 3);
+        //Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.
 
         for (int i = 0; i < int(forw_pts.size()); i++)
             if (status[i] && !inBorder(forw_pts[i]))
