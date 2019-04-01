@@ -212,7 +212,7 @@ bool Estimator::initialStructure()
 {
     TicToc t_sfm;
     //check imu observibility
-    {
+    {//all_image_frame中所有帧的平均加速度, 并计算加速度的方差, 判断方差是否足够大
         map<double, ImageFrame>::iterator frame_it;
         Vector3d sum_g;
         for (frame_it = all_image_frame.begin(), frame_it++; frame_it != all_image_frame.end(); frame_it++)
@@ -233,7 +233,7 @@ bool Estimator::initialStructure()
         }
         var = sqrt(var / ((int)all_image_frame.size() - 1));
         //ROS_WARN("IMU variation %f!", var);
-        if(var < 0.25)
+        if(var < 0.25)//all_image_frame中所有帧的平均加速度, 并计算加速度的方差, 判断方差是否足够大
         {
             ROS_INFO("IMU excitation not enouth!");
             //return false;
@@ -261,15 +261,20 @@ bool Estimator::initialStructure()
     Matrix3d relative_R;
     Vector3d relative_T;
     int l;
-    if (!relativePose(relative_R, relative_T, l))
+    if (!relativePose(relative_R, relative_T, l))//调用relativePose判断sliding window是否某一帧l与当前帧视差足够大, 如果存在的话, 则根据特征匹配用五点法计算l和当前帧的relative R,t, 用来做后面的SFM
     {
         ROS_INFO("Not enough features or parallax; Move device around");
         return false;
     }
+
+
+
+    //all condition met, start sfm!
     GlobalSFM sfm;
     if(!sfm.construct(frame_count + 1, Q, T, l,
               relative_R, relative_T,
-              sfm_f, sfm_tracked_points))
+              sfm_f, sfm_tracked_points))//调用construct()进行SFM, 估计slidingwindow中的camera pose和features的3D position.
+        //sfm_f是SFM中的特征点,包括id,state(是否被三角化),各帧中观测,3D坐标等.
     {
         ROS_DEBUG("global SFM failed!");
         marginalization_flag = MARGIN_OLD;
@@ -329,7 +334,7 @@ bool Estimator::initialStructure()
             ROS_DEBUG("Not enough points for solve pnp !");
             return false;
         }
-        if (! cv::solvePnP(pts_3_vector, pts_2_vector, K, D, rvec, t, 1))
+        if (! cv::solvePnP(pts_3_vector, pts_2_vector, K, D, rvec, t, 1))//然后对all_image_frame中没有参与SFM的帧的位姿进行了PnP求解.
         {
             ROS_DEBUG("solve pnp fail!");
             return false;
@@ -344,7 +349,7 @@ bool Estimator::initialStructure()
         frame_it->second.R = R_pnp * RIC[0].transpose();
         frame_it->second.T = T_pnp;
     }
-    if (visualInitialAlign())
+    if (visualInitialAlign())//调用visualInitialAlign()进行视觉和IMU的校准.
         return true;
     else
     {
@@ -448,11 +453,11 @@ bool Estimator::relativePose(Matrix3d &relative_R, Vector3d &relative_T, int &l)
                 Vector2d pts_0(corres[j].first(0), corres[j].first(1));
                 Vector2d pts_1(corres[j].second(0), corres[j].second(1));
                 double parallax = (pts_0 - pts_1).norm();
-                sum_parallax = sum_parallax + parallax;
+                sum_parallax = sum_parallax + parallax;// sum all parallax
 
             }
             average_parallax = 1.0 * sum_parallax / int(corres.size());
-            if(average_parallax * 460 > 30 && m_estimator.solveRelativeRT(corres, relative_R, relative_T))
+            if(average_parallax * 460 > 30 && m_estimator.solveRelativeRT(corres, relative_R, relative_T))//see if it is enough
             {
                 l = i;
                 ROS_DEBUG("average_parallax %f choose l %d and newest frame to triangulate the whole structure", average_parallax * 460, l);
