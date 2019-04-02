@@ -16,9 +16,9 @@ void solveGyroscopeBias(map<double, ImageFrame> &all_image_frame, Vector3d* Bgs)
         tmp_A.setZero();
         VectorXd tmp_b(3);
         tmp_b.setZero();
-        Eigen::Quaterniond q_ij(frame_i->second.R.transpose() * frame_j->second.R);
-        tmp_A = frame_j->second.pre_integration->jacobian.template block<3, 3>(O_R, O_BG);
-        tmp_b = 2 * (frame_j->second.pre_integration->delta_q.inverse() * q_ij).vec();
+        Eigen::Quaterniond q_ij(frame_i->second.R.transpose() * frame_j->second.R);// this is the rotation from image
+        tmp_A = frame_j->second.pre_integration->jacobian.template block<3, 3>(O_R, O_BG);// this is the jacobian of equation(delta bw) A.
+        tmp_b = 2 * (frame_j->second.pre_integration->delta_q.inverse() * q_ij).vec();// delta_q  is the rotation from IMU
         A += tmp_A.transpose() * tmp_A;
         b += tmp_A.transpose() * tmp_b;
 
@@ -26,7 +26,7 @@ void solveGyroscopeBias(map<double, ImageFrame> &all_image_frame, Vector3d* Bgs)
     delta_bg = A.ldlt().solve(b);
     ROS_WARN_STREAM("gyroscope bias initial calibration " << delta_bg.transpose());
 
-    for (int i = 0; i <= WINDOW_SIZE; i++)
+    for (int i = 0; i <= WINDOW_SIZE; i++)//TODO: why add all the same???
         Bgs[i] += delta_bg;
 
     for (frame_i = all_image_frame.begin(); next(frame_i) != all_image_frame.end( ); frame_i++)

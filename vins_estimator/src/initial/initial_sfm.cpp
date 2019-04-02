@@ -258,7 +258,7 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 		problem.AddParameterBlock(c_translation[i], 3);
 		if (i == l)
 		{
-			problem.SetParameterBlockConstant(c_rotation[i]);
+			problem.SetParameterBlockConstant(c_rotation[i]);// l is the basis of the problem. don't have to be optimize.
 		}
 		if (i == l || i == frame_num - 1)
 		{
@@ -266,9 +266,9 @@ bool GlobalSFM::construct(int frame_num, Quaterniond* q, Vector3d* T, int l,
 		}
 	}
 
-	for (int i = 0; i < feature_num; i++)
+	for (int i = 0; i < feature_num; i++)//标准格式！！！重投影误差约束。！
 	{
-		if (sfm_f[i].state != true)
+		if (sfm_f[i].state != true)// there is still features can't be find twice.
 			continue;
 		for (int j = 0; j < int(sfm_f[i].observation.size()); j++)
 		{
