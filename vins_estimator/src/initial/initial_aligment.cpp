@@ -26,8 +26,8 @@ void solveGyroscopeBias(map<double, ImageFrame> &all_image_frame, Vector3d* Bgs)
     delta_bg = A.ldlt().solve(b);
     ROS_WARN_STREAM("gyroscope bias initial calibration " << delta_bg.transpose());
 
-    for (int i = 0; i <= WINDOW_SIZE; i++)//TODO: why add all the same???
-        Bgs[i] += delta_bg;
+    for (int i = 0; i <= WINDOW_SIZE; i++)//TODO: why add all the same???左边的jacobian就是代码中的tmp_A, 右边对应代码中的tmp_b, 每两帧之间都可以构造一个这样的等式约束, 超定方程用ATAx=ATb求得最小二乘解, 注意求得的δbw是变化量, 所以将每帧的Bgs[i]都加上该delta量进行更新. 然后利用更新后的gyro bias重新repropagate.
+        Bgs[i] += delta_bg;//brute?
 
     for (frame_i = all_image_frame.begin(); next(frame_i) != all_image_frame.end( ); frame_i++)
     {
