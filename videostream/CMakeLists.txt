@@ -138,7 +138,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(video_node src/video_node.cpp src/video_node.cpp.h)
+ add_executable(video_node src/video_node.cpp src/IMUreceiver.cpp src/IMUreceiver.h src/ImageConverter.cpp src/ImageConverter.h)
  target_link_libraries( video_node ${OpenCV_LIBS} )
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
