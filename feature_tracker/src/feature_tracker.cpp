@@ -162,7 +162,7 @@ void FeatureTracker::readImage(const cv::Mat &_img, double _cur_time)
     prev_pts = cur_pts;
     prev_un_pts = cur_un_pts;
     cur_img = forw_img;
-    cur_pts = forw_pts;
+    cur_pts = forw_pts;//save features to global variable
     undistortedPoints();
     prev_time = cur_time;
 }

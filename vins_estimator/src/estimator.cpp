@@ -117,7 +117,7 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
     if (f_manager.addFeatureCheckParallax(frame_count, image, td))
         marginalization_flag = MARGIN_OLD;
     else
-        marginalization_flag = MARGIN_SECOND_NEW;
+        marginalization_flag = MARGIN_SECOND_NEW;//decide which to marginalize
 
     ROS_DEBUG("this frame is--------------------%s", marginalization_flag ? "reject" : "accept");
     ROS_DEBUG("%s", marginalization_flag ? "Non-keyframe" : "Keyframe");
